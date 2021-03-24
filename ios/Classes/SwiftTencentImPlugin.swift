@@ -295,11 +295,20 @@ public class SwiftTencentImPlugin: NSObject, FlutterPlugin {
         case "deleteFriendsFromFriendGroup":
             self.deleteFriendsFromFriendGroup(call: call, result: result);
             break;
+        case "getIosDeviceToken":
+            self.getIosDeviceToken(call: call, result: result);
+            break;
         default:
             result(FlutterMethodNotImplemented);
         }
     }
-
+    public func getIosDeviceToken(call: FlutterMethodCall, result: @escaping FlutterResult) {
+        let token = UserDefaults.standard.value(forKey: "token") as! String
+        print("===========")
+        print(token)
+        print("===========")
+        return result(token);
+    }
     /**
      * 初始化腾讯云IM
      */
@@ -361,7 +370,23 @@ public class SwiftTencentImPlugin: NSObject, FlutterPlugin {
         if let userID = CommonUtils.getParam(call: call, result: result, param: "userID") as? String,
            let userSig = CommonUtils.getParam(call: call, result: result, param: "userSig") as? String {
             V2TIMManager.sharedInstance().login(userID, userSig: userSig, succ: {
-                result(nil);
+            let param = TIMTokenParam()
+            #if DEBUG
+            param.busiId = 25649
+            #else
+            param.busiId = 25648
+            #endif
+            param.token = (UserDefaults.standard.value(forKey: "token") as! String ).data(using: .utf8)
+            print("===========")
+            print(UserDefaults.standard.value(forKey: "token"))
+            print(param.token)
+            print("===========")
+            TIMManager.sharedInstance()?.setToken(param, succ: {
+                print("set token success")
+            }, fail: { (i, s) in
+                print("set token faild")
+            })
+             result(nil);
             }, fail: TencentImUtils.returnErrorClosures(result: result))
         }
     }

@@ -75,7 +75,15 @@ class TencentImPlugin {
   /// 获取服务器当前时间
   /// [Return] 服务器时间，单位 s
   static Future<int> getServerTime() => _channel.invokeMethod('getServerTime');
-
+  ///
+  /// [userID] 用户ID
+  /// [userSig] 用户签名
+  static getIosDeviceToken({
+    @required String userID,
+    @required String userSig,
+  }) {
+    return _channel.invokeMethod('getIosDeviceToken');
+  }
   /// 登录腾讯云IM
   /// [userID] 用户ID
   /// [userSig] 用户签名
