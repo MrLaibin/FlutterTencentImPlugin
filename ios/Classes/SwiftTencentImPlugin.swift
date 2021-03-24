@@ -376,16 +376,17 @@ public class SwiftTencentImPlugin: NSObject, FlutterPlugin {
             #else
             param.busiId = 25648
             #endif
-            param.token = (UserDefaults.standard.value(forKey: "token") as! String ).data(using: .utf8)
-            print("===========")
-            print(UserDefaults.standard.value(forKey: "token"))
-            print(param.token)
-            print("===========")
-            TIMManager.sharedInstance()?.setToken(param, succ: {
-                print("set token success")
-            }, fail: { (i, s) in
-                print("set token faild")
-            })
+            let token = UserDefaults.standard.value(forKey: "token") as! String;
+                            print("===========")
+                            print(token)
+                            param.token = token.data(using: String.Encoding.ascii);
+                            print(param.token)
+                            print("===========")
+                            TIMManager.sharedInstance()?.setToken(param, succ: {
+                                print("set token success")
+                            }, fail: { (i, s) in
+                                print("set token faild")
+                            })
              result(nil);
             }, fail: TencentImUtils.returnErrorClosures(result: result))
         }
