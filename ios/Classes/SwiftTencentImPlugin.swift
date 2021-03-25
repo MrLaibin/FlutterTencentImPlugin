@@ -370,23 +370,6 @@ public class SwiftTencentImPlugin: NSObject, FlutterPlugin {
         if let userID = CommonUtils.getParam(call: call, result: result, param: "userID") as? String,
            let userSig = CommonUtils.getParam(call: call, result: result, param: "userSig") as? String {
             V2TIMManager.sharedInstance().login(userID, userSig: userSig, succ: {
-            let param = TIMTokenParam()
-            #if DEBUG
-            param.busiId = 25649
-            #else
-            param.busiId = 25648
-            #endif
-            let token = UserDefaults.standard.value(forKey: "token") as! String;
-                            print("===========")
-                            print(token)
-                            param.token = token.data(using: String.Encoding.ascii);
-                            print(param.token)
-                            print("===========")
-                            TIMManager.sharedInstance()?.setToken(param, succ: {
-                                print("set token success")
-                            }, fail: { (i, s) in
-                                print("set token faild")
-                            })
              result(nil);
             }, fail: TencentImUtils.returnErrorClosures(result: result))
         }
