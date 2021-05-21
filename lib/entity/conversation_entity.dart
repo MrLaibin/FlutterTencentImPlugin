@@ -9,64 +9,66 @@ import 'dart:convert';
 /// 会话实体
 class ConversationEntity {
   /// 会话ID
-  String conversationID;
+  late String conversationID;
 
   /// 会话类型
-  ConversationTypeEnum type;
+  late ConversationTypeEnum type;
 
   /// 用户ID
-  String userID;
+  String? userID;
 
   /// 群ID
-  String groupID;
+  String? groupID;
 
   /// 显示名称
-  String showName;
+  String? showName;
 
   /// 头像
-  String faceUrl;
+  String? faceUrl;
 
   /// 接收消息选项（群会话有效）
-  GroupReceiveMessageOptEnum recvOpt;
+  GroupReceiveMessageOptEnum? recvOpt;
 
   /// 群类型
-  GroupTypeEnum groupType;
+  GroupTypeEnum? groupType;
 
   /// 未读数量
-  int unreadCount;
+  int? unreadCount;
 
   /// 最后一条消息
-  MessageEntity lastMessage;
+  MessageEntity? lastMessage;
 
   /// 草稿文本
-  String draftText;
+  String? draftText;
 
   /// 草稿时间
-  int draftTimestamp;
+  int? draftTimestamp;
 
   /// @信息列表
-  List<GroupAtInfoEntity> groupAtInfoList;
+  List<GroupAtInfoEntity>? groupAtInfoList;
 
   ConversationEntity.fromJson(data) {
     Map<String, dynamic> json =
         data is Map ? data.cast<String, dynamic>() : jsonDecode(data);
-    conversationID = json['conversationID'];
-    type = ConversationTypeTool.getByInt(json['type']);
-    userID = json['userID'];
-    groupID = json['groupID'];
-    showName = json['showName'];
-    faceUrl = json['faceUrl'];
-    recvOpt = GroupReceiveMessageOptTool.getByInt(json['recvOpt']);
-    groupType = GroupTypeTool.getByString(json['groupType']);
-    unreadCount = json['unreadCount'];
-    lastMessage = json['lastMessage'] == null
-        ? null
-        : MessageEntity.fromJson(json["lastMessage"]);
-    draftText = json['draftText'];
-    draftTimestamp = json['draftTimestamp'];
-    groupAtInfoList = json["groupAtInfoList"] == null
-        ? null
-        : ListUtil.generateOBJList<GroupAtInfoEntity>(json["groupAtInfoList"]);
+    if (json['conversationID'] != null) conversationID = json['conversationID'];
+    if (json['type'] != null)
+      type = ConversationTypeTool.getByInt(json['type']);
+    if (json['userID'] != null) userID = json['userID'];
+    if (json['groupID'] != null) groupID = json['groupID'];
+    if (json['showName'] != null) showName = json['showName'];
+    if (json['faceUrl'] != null) faceUrl = json['faceUrl'];
+    if (json['recvOpt'] != null)
+      recvOpt = GroupReceiveMessageOptTool.getByInt(json['recvOpt']);
+    if (json['groupType'] != null)
+      groupType = GroupTypeTool.getByString(json['groupType']);
+    if (json['unreadCount'] != null) unreadCount = json['unreadCount'];
+    if (json['lastMessage'] != null)
+      lastMessage = MessageEntity.fromJson(json["lastMessage"]);
+    if (json['draftText'] != null) draftText = json['draftText'];
+    if (json['draftTimestamp'] != null) draftTimestamp = json['draftTimestamp'];
+    if (json['groupAtInfoList'] != null)
+      groupAtInfoList =
+          ListUtil.generateOBJList<GroupAtInfoEntity>(json["groupAtInfoList"]);
   }
 
   @override

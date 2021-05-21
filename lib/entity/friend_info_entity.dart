@@ -1,26 +1,25 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:tencent_im_plugin/entity/user_entity.dart';
 
 /// 好友信息实体
 class FriendInfoEntity {
   /// 用户ID
-  String userID;
+  late String userID;
 
   /// 好友备注
-  String friendRemark;
+  String? friendRemark;
 
   /// 好友分组列表
-  List<String> friendGroups;
+  List<String>? friendGroups;
 
   /// 好友自定义信息
-  Map<String, String> friendCustomInfo;
+  Map<String, String>? friendCustomInfo;
 
   /// 用户信息
-  UserEntity userProfile;
+  UserEntity? userProfile;
 
   FriendInfoEntity({
-    @required this.userID,
+    required this.userID,
     this.friendRemark,
     this.friendCustomInfo,
   });
@@ -28,16 +27,19 @@ class FriendInfoEntity {
   FriendInfoEntity.fromJson(data) {
     Map<String, dynamic> json =
         data is Map ? data.cast<String, dynamic>() : jsonDecode(data);
-    userID = json['userID'];
-    friendRemark = json['friendRemark'];
-    friendGroups = json['friendGroups']?.cast<String>();
-    friendCustomInfo = json['friendCustomInfo']?.cast<String, String>();
-    userProfile = UserEntity.fromJson(json['userProfile']);
+    if (json['userID'] != null) userID = json['userID'];
+    if (json['friendRemark'] != null) friendRemark = json['friendRemark'];
+    if (json['friendGroups'] != null)
+      friendGroups = json['friendGroups']?.cast<String>();
+    if (json['friendCustomInfo'] != null)
+      friendCustomInfo = json['friendCustomInfo']?.cast<String, String>();
+    if (json['userProfile'] != null)
+      userProfile = UserEntity.fromJson(json['userProfile']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.userID != null) data['userID'] = this.userID;
+    data['userID'] = this.userID;
     if (this.friendRemark != null) data['friendRemark'] = this.friendRemark;
     if (this.friendCustomInfo != null)
       data['friendCustomInfo'] = this.friendCustomInfo;

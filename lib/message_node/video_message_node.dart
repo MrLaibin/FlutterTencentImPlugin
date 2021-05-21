@@ -1,72 +1,72 @@
-import 'package:flutter/widgets.dart';
 import 'package:tencent_im_plugin/enums/message_elem_type_enum.dart';
 import 'package:tencent_im_plugin/message_node/message_node.dart';
 
 /// 适配消息节点
 class VideoMessageNode extends MessageNode {
   /// 视频路径
-  String videoPath;
+  String? videoPath;
 
   /// 视频UUID
-  String _videoUuid;
+  String? _videoUuid;
 
   /// 视频大小
-  int _videoSize;
+  int? _videoSize;
 
   /// 时长
-  int duration;
+  late int duration;
 
   /// 缩略图路径
-  String snapshotPath;
+  String? snapshotPath;
 
   /// 缩略图UUID
-  String _snapshotUuid;
+  String? _snapshotUuid;
 
   /// 缩略图大小
-  int _snapshotSize;
+  int? _snapshotSize;
 
   /// 缩略图宽度
-  int _snapshotWidth;
+  int? _snapshotWidth;
 
   /// 缩略图高度
-  int _snapshotHeight;
+  int? _snapshotHeight;
 
   VideoMessageNode({
-    @required this.videoPath,
-    @required this.duration,
-    @required this.snapshotPath,
+    required this.videoPath,
+    required this.duration,
+    required this.snapshotPath,
   }) : super(MessageElemTypeEnum.Video);
 
   VideoMessageNode.fromJson(Map<String, dynamic> json)
       : super(MessageElemTypeEnum.Video) {
-    videoPath = json["videoPath"];
-    _videoUuid = json["videoUuid"];
-    _videoSize = json["videoSize"];
-    duration = json["duration"];
-    snapshotPath = json["snapshotPath"];
-    _snapshotUuid = json["snapshotUuid"];
-    _snapshotSize = json["snapshotSize"];
-    _snapshotWidth = json["snapshotWidth"];
-    _snapshotHeight = json["snapshotHeight"];
+    if (json['videoPath'] != null) videoPath = json["videoPath"];
+    if (json['videoUuid'] != null) _videoUuid = json["videoUuid"];
+    if (json['videoSize'] != null) _videoSize = json["videoSize"];
+    if (json['duration'] != null) duration = json["duration"];
+    if (json['snapshotPath'] != null) snapshotPath = json["snapshotPath"];
+    if (json['snapshotUuid'] != null) _snapshotUuid = json["snapshotUuid"];
+    if (json['snapshotSize'] != null) _snapshotSize = json["snapshotSize"];
+    if (json['snapshotWidth'] != null) _snapshotWidth = json["snapshotWidth"];
+    if (json['snapshotHeight'] != null)
+      _snapshotHeight = json["snapshotHeight"];
   }
 
   /// 获得视频UUID
-  String get videoUuid => _videoUuid;
+  String? get videoUuid => _videoUuid;
 
   /// 获得视频大小
-  int get videoSize => _videoSize;
+  int? get videoSize => _videoSize;
 
   /// 获得缩略图UUID
-  String get snapshotUuid => _snapshotUuid;
+  String? get snapshotUuid => _snapshotUuid;
 
   /// 获得缩略图大小
-  int get snapshotSize => _snapshotSize;
+  int? get snapshotSize => _snapshotSize;
 
   /// 获得缩略图宽度
-  int get snapshotWidth => _snapshotWidth;
+  int? get snapshotWidth => _snapshotWidth;
 
   /// 获得缩略图高度
-  int get snapshotHeight => _snapshotHeight;
+  int? get snapshotHeight => _snapshotHeight;
 
   @override
   Map<String, dynamic> toJson() {

@@ -1,24 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:tencent_im_plugin/enums/message_elem_type_enum.dart';
 import 'package:tencent_im_plugin/message_node/message_node.dart';
 
 /// 表情消息节点
 class FaceMessageNode extends MessageNode {
   /// 索引
-  int index;
+  late int index;
 
   /// 数据
-  String data;
+  late String data;
 
   FaceMessageNode({
-    @required this.index,
-    @required this.data,
+    required this.index,
+    required this.data,
   }) : super(MessageElemTypeEnum.Face);
 
   FaceMessageNode.fromJson(Map<String, dynamic> json)
       : super(MessageElemTypeEnum.Face) {
-    this.index = json["index"];
-    this.data = json["data"];
+    if (json['index'] != null) this.index = json["index"];
+    if (json['data'] != null) this.data = json["data"];
   }
 
   @override

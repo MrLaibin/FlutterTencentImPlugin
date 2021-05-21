@@ -6,6 +6,11 @@ class FindGroupApplicationEntity {
   /// 群ID
   String groupID;
 
+  FindGroupApplicationEntity({
+    required this.fromUser,
+    required this.groupID,
+  });
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data["fromUser"] = fromUser;

@@ -4,34 +4,34 @@ import 'package:tencent_im_plugin/enums/group_member_role_enum.dart';
 /// 群成员实体
 class GroupMemberEntity {
   /// 用户ID
-  String userID;
+  late String userID;
 
   /// 用户昵称
-  String nickName;
+  String? nickName;
 
   /// 好友备注
-  String friendRemark;
+  String? friendRemark;
 
   /// 头像URL
-  String faceUrl;
+  String? faceUrl;
 
   /// 角色
-  GroupMemberRoleEnum role;
+  GroupMemberRoleEnum? role;
 
   /// 群成员禁言结束时间戳
-  int muteUntil;
+  int? muteUntil;
 
   /// 加入时间
-  int joinTime;
+  int? joinTime;
 
   /// 自定义字段
-  Map<String, String> customInfo;
+  Map<String, String>? customInfo;
 
   /// 群成员名片
-  String nameCard;
+  String? nameCard;
 
   GroupMemberEntity({
-    this.userID,
+    required this.userID,
     this.customInfo,
     this.nameCard,
   });
@@ -39,21 +39,21 @@ class GroupMemberEntity {
   GroupMemberEntity.fromJson(data) {
     Map<String, dynamic> json =
         data is Map ? data.cast<String, dynamic>() : jsonDecode(data);
-    userID = json['userID'];
-    nickName = json['nickName'];
-    friendRemark = json['friendRemark'];
-    faceUrl = json['faceUrl'];
+    if (json['userID'] != null) userID = json['userID'];
+    if (json['nickName'] != null) nickName = json['nickName'];
+    if (json['friendRemark'] != null) friendRemark = json['friendRemark'];
+    if (json['faceUrl'] != null) faceUrl = json['faceUrl'];
     if (json['role'] != null) role = GroupMemberRoleTool.getByInt(json['role']);
-    muteUntil = json['muteUntil'];
-    joinTime = json['joinTime'];
+    if (json['muteUntil'] != null) muteUntil = json['muteUntil'];
+    if (json['joinTime'] != null) joinTime = json['joinTime'];
     if (json['customInfo'] != null)
       customInfo = (json['customInfo'] as Map).cast<String, String>();
-    nameCard = json['nameCard'];
+    if (json['nameCard'] != null) nameCard = json['nameCard'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.userID != null) data['userID'] = this.userID;
+    data['userID'] = this.userID;
     if (this.customInfo != null) data['customInfo'] = this.customInfo;
     if (this.nameCard != null) data['nameCard'] = this.nameCard;
     return data;

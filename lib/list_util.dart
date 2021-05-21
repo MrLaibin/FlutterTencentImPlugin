@@ -11,7 +11,10 @@ class ListUtil {
 
     List<T> data = [];
     for (var item in arr) {
-      data.add(EntityFactory.generateOBJ<T>(item));
+      var d = EntityFactory.generateOBJ<T>(item);
+      if (d != null) {
+        data.add(d);
+      }
     }
     return data;
   }

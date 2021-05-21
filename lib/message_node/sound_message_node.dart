@@ -1,39 +1,38 @@
-import 'package:flutter/widgets.dart';
 import 'package:tencent_im_plugin/enums/message_elem_type_enum.dart';
 import 'package:tencent_im_plugin/message_node/message_node.dart';
 
 /// 语音消息节点
 class SoundMessageNode extends MessageNode {
   /// 语音ID
-  String _uuid;
+  String? _uuid;
 
   /// 路径
-  String path;
+  String? path;
 
   /// 时长
-  int duration;
+  late int duration;
 
   /// 数据大小
-  int _dataSize;
+  int? _dataSize;
 
   SoundMessageNode({
-    @required this.path,
-    @required this.duration,
+    required this.path,
+    required this.duration,
   }) : super(MessageElemTypeEnum.Sound);
 
   SoundMessageNode.fromJson(Map<String, dynamic> json)
       : super(MessageElemTypeEnum.Sound) {
-    _uuid = json['uuid'];
-    path = json['path'];
-    duration = json['duration'];
-    _dataSize = json['dataSize'];
+    if (json['uuid'] != null) _uuid = json['uuid'];
+    if (json['path'] != null) path = json['path'];
+    if (json['duration'] != null) duration = json['duration'];
+    if (json['dataSize'] != null) _dataSize = json['dataSize'];
   }
 
   /// 获得语音ID
-  String get uuid => _uuid;
+  String? get uuid => _uuid;
 
   /// 获得数据大小
-  int get dataSize => _dataSize;
+  int? get dataSize => _dataSize;
 
   @override
   Map<String, dynamic> toJson() {

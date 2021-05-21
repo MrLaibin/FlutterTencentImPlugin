@@ -3,19 +3,19 @@ import 'dart:convert';
 /// 好友操作结果实体
 class FriendOperationResultEntity {
   /// 用户ID
-  String userID;
+  late String userID;
 
   /// 返回码
-  int resultCode;
+  late int resultCode;
 
   /// 返回信息
-  String resultInfo;
+  String? resultInfo;
 
   FriendOperationResultEntity.fromJson(data) {
     Map<String, dynamic> json =
         data is Map ? data.cast<String, dynamic>() : jsonDecode(data);
-    userID = json['userID'];
-    resultCode = json['resultCode'];
-    resultInfo = json['resultInfo'];
+    if (json['userID'] != null) userID = json['userID'];
+    if (json['resultCode'] != null) resultCode = json['resultCode'];
+    if (json['resultInfo'] != null) resultInfo = json['resultInfo'];
   }
 }
